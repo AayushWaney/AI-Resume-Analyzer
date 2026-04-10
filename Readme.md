@@ -13,19 +13,19 @@ An AI-powered resume analysis tool that compares candidate resumes with job desc
 
 ---
 
-## ⚠️ Deployment Note: Deep Learning Architecture
-This project uses `SentenceTransformers` and `PyTorch` to perform localized, high-fidelity semantic similarity calculations. Because the model must be loaded into RAM during startup, this application exceeds the 512MB compute limits of standard free-tier hosting platforms. To ensure zero-latency performance and prevent out-of-memory crashes, this architecture is designed to be run locally.
+## ⚠️ Deployment Note
+This project uses `SentenceTransformers` and `PyTorch` for semantic similarity using pretrained transformer embeddings. Since the model is loaded into memory, it may exceed the limits of some free hosting platforms, so it is best suited for local deployment. Running the model locally also avoids latency from external API calls.
 
 ---
 
 ## 🚀 Features
 
 - **Upload PDF Resumes:** Secure file parsing and temporary storage.
-- **Semantic Deep Learning Match:** Contextual similarity scoring replacing brittle keyword frequencies.
-- **Multi-Dimensional Quality Radar:** Visual ATS simulation scoring across Structure, Impact, Keywords, and Formats.
-- **Skill Category Intelligence:** Automatic grouping of parsed entities into domains (e.g., *Data & AI*, *Cloud & DevOps*).
+- **Semantic Similarity Matching:** Contextual similarity scoring replacing brittle keyword frequencies.
+- **Resume Quality Analysis (with radar chart):** Visual ATS simulation scoring across Structure, Impact, Keywords, and Formats.
+- **Skill Extraction & Categorization:** Automatic grouping of parsed entities into domains (e.g., *Data & AI*, *Cloud & DevOps*).
 - **Proactive ATS Warnings:** Detection of parser-breaking formatting (tables, columns).
-- **Transparent Heatmap Verification:** Dynamic HTML document heatmap highlighting extracted entities in raw text.
+- **Resume Text Highlighting (Heatmap View):** Dynamic HTML document heatmap highlighting extracted entities in raw text.
 
 ---
 
@@ -75,7 +75,7 @@ This project uses `SentenceTransformers` and `PyTorch` to perform localized, hig
 
 ## 🧠 System Architecture
 
-This application strictly adheres to the **Model-View-Controller (MVC)** pattern to separate routing logic from heavy AI computation:
+This application follows a simple MVC-style structure to separate logic and UI:
 
 * **Engine (`analyzer.py`):** Handles PDF extraction, Regex fallbacks, and the PyTorch neural network logic. Loads the model globally to prevent memory leaks on concurrent server requests.
 * **Controller (`app.py`):** A lightweight Flask router that manages secure file uploads, data unpacking, and template rendering. 
